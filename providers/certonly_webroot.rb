@@ -8,14 +8,20 @@ action :create do
     'server' => node['certbot']['server'],
     'staging' => node['certbot']['staging'],
 
-    'webroot' => true,
-    'webroot-path' => new_resource.webroot_path,
     'email' => new_resource.email,
     'domains' =>  new_resource.domains.join(','),
     'expand' => new_resource.expand,
     'agree-tos' => new_resource.agree_tos,
-    'non-interactive' => true
+    'non-interactive' => true,
   }
+  case node['certbot']['plugin']
+  when 'standalone' then
+    options['standalone'] = true,
+    options['standalone-supported-challenges'] = node['certbot']['plugin']['challenges'],
+  when 'webroot' then
+    options['webroot'] = true,
+    options['webroot-path'] = new_resource.webroot_path,
+  end
 
   unless options['agree-tos']
     raise 'You need to agree to the Terms of Service by setting agree_tos true'

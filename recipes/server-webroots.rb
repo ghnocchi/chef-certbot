@@ -1,5 +1,6 @@
 directory node['certbot']['sandbox']['webroot_path'] do
   recursive true
+  only_if { node['certbot']['sandbox']['enabled'] }
 end
 
 template "#{node['nginx']['dir']}/certbot.conf" do

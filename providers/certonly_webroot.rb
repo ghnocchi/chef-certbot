@@ -14,7 +14,7 @@ action :create do
     'agree-tos' => new_resource.agree_tos,
     'non-interactive' => true,
   }
-  case node['certbot']['plugin']
+  case node['certbot']['plugin']['install']
   when 'standalone' then
     options['standalone'] = true,
     options['standalone-supported-challenges'] = node['certbot']['plugin']['challenges'],

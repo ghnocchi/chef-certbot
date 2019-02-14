@@ -1,6 +1,6 @@
 ruby_block 'detect web server services in use' do
   block do
-    plugin = node.default['certbot']['plugin']
+    plugin = node.default['certbot']['plugin']['install']
     if (plugin === 'nginx') or (plugin === 'auto' and run_context.loaded_recipe?('nginx'))
       node.default['certbot']['renew_post_services']['nginx'] = 'reload'
       node.default['certbot']['services']['nginx'] = true

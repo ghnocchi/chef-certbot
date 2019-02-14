@@ -14,6 +14,14 @@ default['certbot']['logs_dir'] = '/var/log/letsencrypt'
 default['certbot']['server'] = nil
 default['certbot']['staging'] = false
 
+# 使用するプラグインの指定
+# webrootの場合
+#    レシピにnginx/apacheが使用されている場合に、使用されているサービスに設定を追加する
+# standaloneの場合
+#    certonly --standaloneを実行する
+default['certbot']['plugin'] = 'webroot' # webroot or standalone
+default['certbot']['plugin']['challenges'] = 'http-01' # The setting item can use only by STANDALONE or MANUAL plugins.
+
 default['certbot']['certbot_auto_path'] = '/usr/local/bin/certbot-auto'
 default['certbot']['package'] = 'certbot'
 
